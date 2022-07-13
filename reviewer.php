@@ -1,4 +1,5 @@
 <?php
+require_once("connect.php");
 require_once("IMG_Member.php");
 class Reviewer extends IMG_Member {
     public $rid;
@@ -7,7 +8,7 @@ class Reviewer extends IMG_Member {
     function __construct($email, $rid){
         $this->email = $email;
         $this->rid = $rid;
-        $connection_response = mysqli_connect("localhost", "root", "password", "assignment");
+        $connection_response = $GLOBALS['connection_response'];
         $query = mysqli_query($connection_response, "SELECT * FROM details WHERE email = '{$email}'");
         $row = mysqli_fetch_assoc($query);
         $this->year = $row['year'];

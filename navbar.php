@@ -1,6 +1,6 @@
 <nav class="navbar bg-dark navbar-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/img-assignment">Assignment Review System</a>
+    <a class="navbar-brand" href="./index.php">Assignment Review System</a>
     <?php
       if (isset($_SESSION['name'])){
     ?>
