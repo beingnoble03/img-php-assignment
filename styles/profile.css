@@ -1,0 +1,12 @@
+a {
+    text-decoration: none;
+}
+
+.main-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    padding: 20px;
+}

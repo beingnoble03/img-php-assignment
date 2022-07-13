@@ -1,0 +1,27 @@
+.main-container {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.comment-section {
+    margin-top: 25px;
+    width: 100%;
+    border: 1px grey solid;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.comment {
+    margin-bottom: 20px;
+    padding-left: 5px;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+}
