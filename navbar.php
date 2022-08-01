@@ -12,8 +12,8 @@
       } else {
     ?>
     <div class="d-flex">
-      <button class="btn btn-outline-warning btn-sm" type="submit" name = "login-btn" onclick="window.location.href = './login.php'">Login</button>
-      <button class="btn btn-outline-warning btn-sm" type="submit" name = "register-btn" style="margin-left: 10px;" onclick="window.location.href = './register.php'">Register</button>
+      <button class="btn btn-outline-warning btn-sm" type="submit" name = "login-btn" onclick="window.location.replace('./login.php')">Login</button>
+      <button class="btn btn-outline-warning btn-sm" type="submit" name = "register-btn" style="margin-left: 10px;" onclick="window.location.replace('./register.php')">Register</button>
       </div>
     <?php
       }

@@ -76,6 +76,29 @@ function email_to_rid($email, $connection_response){
     }
 }
 $invalid_email = FALSE;
+if (isset($_COOKIE['token'])){
+    $token = $_COOKIE['token'];
+    $query = mysqli_query($connection_response, "SELECT * FROM token WHERE token = '{$token}'");
+    if (mysqli_num_rows($query) === 1){
+      $row = mysqli_fetch_assoc($query);
+      $email = $row["email"];
+      $query = mysqli_query($connection_response, "SELECT * FROM student WHERE email = '{$email}'");
+      if (mysqli_num_rows($query) === 1){
+        $row = mysqli_fetch_assoc($query);
+        $_SESSION["name"] = $row["name"];
+        $_SESSION["sid"] = $row["id"];
+        $_SESSION["email"] = $row["email"];
+      } else {
+        $query = mysqli_query($connection_response, "SELECT * FROM reviewer WHERE email = '{$email}'");
+        if (mysqli_num_rows($query) === 1){
+          $row = mysqli_fetch_assoc($query);
+          $_SESSION["name"] = $row["name"];
+          $_SESSION["rid"] = $row["id"];
+          $_SESSION["email"] = $row["email"];
+        }
+      }
+    }
+  }
 if(!isset($_GET["iid"]) || !isset($_SESSION["email"])){
     header("Location: index.php");
 } else {

@@ -31,6 +31,31 @@ require_once("connect.php");
 if (isset($_SESSION["email"])){
     header("Location: index.php");
 }
+if (isset($_COOKIE['token'])){
+  $token = $_COOKIE['token'];
+  $query = mysqli_query($connection_response, "SELECT * FROM token WHERE token = '{$token}'");
+  if (mysqli_num_rows($query) === 1){
+    $row = mysqli_fetch_assoc($query);
+    $email = $row["email"];
+    $query = mysqli_query($connection_response, "SELECT * FROM student WHERE email = '{$email}'");
+    if (mysqli_num_rows($query) === 1){
+      $row = mysqli_fetch_assoc($query);
+      $_SESSION["name"] = $row["name"];
+      $_SESSION["sid"] = $row["id"];
+      $_SESSION["email"] = $row["email"];
+      header("Location: index.php");
+    } else {
+      $query = mysqli_query($connection_response, "SELECT * FROM reviewer WHERE email = '{$email}'");
+      if (mysqli_num_rows($query) === 1){
+        $row = mysqli_fetch_assoc($query);
+        $_SESSION["name"] = $row["name"];
+        $_SESSION["rid"] = $row["id"];
+        $_SESSION["email"] = $row["email"];
+        header("Location: index.php");
+      }
+    }
+  }
+}
 if($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["student-submit-btn"])){
     $email = $_POST["email"];
     $password = $_POST["password"];
@@ -41,6 +66,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["student-submit-btn"]))
           $_SESSION["name"] = $row["name"];
           $_SESSION["sid"] = $row["id"];
           $_SESSION["email"] = $row["email"];
+          $php_id = $_COOKIE['PHPSESSID'];
+          $query = mysqli_query($connection_response, "INSERT INTO token VALUES ('{$php_id}', '{$email}');");
+          setcookie("token", "{$php_id}", time() + (86400 * 30), "/");
           header("Location: index.php");
         } else {
           header("Refresh:0");
@@ -58,6 +86,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["reviewer-submit-btn"])
         $_SESSION["name"] = $row["name"];
         $_SESSION["rid"] = $row["id"];
         $_SESSION["email"] = $row["email"];
+        $php_id = $_COOKIE['PHPSESSID'];
+        $query = mysqli_query($connection_response, "INSERT INTO token VALUES ('{$php_id}', '{$email}');");
+        setcookie("token", "{$php_id}", time() + (86400 * 30), "/");
         header("Location: index.php");
       } else {
         header("Refresh:0;");
